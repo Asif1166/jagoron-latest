@@ -1,0 +1,1086 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% load bangla_filters %}
+
+{% block body %}
+
+
+
+
+            <div class="bbc-q944gg">
+                <div class="bbc-1kb1fna">
+                        <!-- <section aria-label="বিজ্ঞাপন" aria-hidden="true"  data-e2e="advertisement"
+                            class="bbc-13j0x7y">
+                            <div id="dotcom-leaderboard" class="dotcom-ad"></div>
+                        </section> -->
+                    <div class="bbc-bg8vrv">
+                        <div class="bbc-1cvxiy9">
+                            <main role="main" class="bbc-fa0wmp">
+
+                                &nbsp;
+                                &nbsp;
+
+                                <div dir="ltr" class="bbc-1151pbn ebmt73l0 news-titles">
+                                    {% if news.top_sub_title %}
+                                        <h5 id="content" tabindex="-1" class="top_sub_title e1p3vdyi0">{{ news.top_sub_title }}</h5>
+                                    {% endif %}
+                                
+                                    {% if news.title %}
+                                        <h3 id="content" tabindex="-1" class="bbc-qa2lun e1p3vdyi0">{{ news.title }}</h3>
+                                    {% endif %}
+                                
+                                    {% if news.sub_title %}
+                                        <h5 id="content" tabindex="-1" class="top_sub_title e1p3vdyi0">{{ news.sub_title }}</h5>
+                                    {% endif %}
+                                </div>
+                                
+
+
+                                <figure class="bbc-1qn0xuy">
+                                    <div class="bbc-j1srjl" style="padding-bottom:66.63%">
+                                        {% if news.main_image %}
+                                        <img
+                                            src="{{ news.main_image.url }}"
+                                            srcSet="{{ news.main_image.url }} 240w, {{ news.main_image.url }} 320w, {{ news.main_image.url }} 480w, {{ news.main_image.url }} 624w, {{ news.main_image.url }} 800w"
+                                            sizes="(min-width: 1008px) 760px, 100vw"
+                                            alt="{{ news.image_title|default:news.title }}"
+                                            width="800" height="533" style="aspect-ratio:800 / 533"
+                                            class="bbc-139onq" data-src="{{ news.main_image.url }}" loading="lazy"/>
+                                            {% elif news.heading_image %}
+                                        <img
+                                            src="{{ news.heading_image.url }}"
+                                            srcSet="{{ news.heading_image.url }} 240w, {{ news.heading_image.url }} 320w, {{ news.heading_image.url }} 480w, {{ news.heading_image.url }} 624w, {{ news.heading_image.url }} 800w"
+                                            sizes="(min-width: 1008px) 760px, 100vw"
+                                            alt="{{ news.image_title|default:news.title }}"
+                                            width="800" height="533" style="aspect-ratio:800 / 533"
+                                            class="bbc-139onq" data-src="{{ news.heading_image.url }}" loading="lazy"/>
+                                        {% endif %}
+                                    </div>
+
+                                    {% if news.main_image_title %}
+                                    <figcaption class="bbc-dltbep" dir="ltr">
+                                        <span role="text">
+                                            <span class="bbc-m04vo2">ছবির ক্যাপশান, </span>
+                                            <span data-testid="caption-paragraph">{{ news.main_image_title }}</span>
+                                        </span>
+                                    </figcaption>
+                                {% elif news.heading_image_title %}
+                                    <figcaption class="bbc-dltbep" dir="ltr">
+                                        <span role="text">
+                                            <span class="bbc-m04vo2">ছবির ক্যাপশান, </span>
+                                            <span data-testid="caption-paragraph">{{ news.heading_image_title }}</span>
+                                        </span>
+                                    </figcaption>
+                                {% endif %}
+                                
+
+
+
+                                    <div class="button-group" style="margin-top: 10px; text-align: center;">
+                                         <!-- Facebook SVG Icon -->
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" 
+                    target="_blank" 
+                    style="text-decoration: none;" aria-label="Share this news on Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#4267B2">
+                        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
+                    </svg>
+                </a>
+
+                <!-- Twitter SVG Icon -->
+                <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ news.title }}" 
+                    target="_blank" 
+                    style="text-decoration: none;" aria-label="Share this news on Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#1DA1F2">
+                        <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H1.128l8.6-9.83L0 1.154h7.594l5.243 6.932zM17.331 20.65h2.035L6.851 3.34H4.673z"/>
+                    </svg>
+                </a>
+
+                <!-- Instagram SVG Icon -->
+                <!-- <a href="https://www.instagram.com/" 
+                    target="_blank" 
+                    style="text-decoration: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#E1306C">
+                        <path d="M12 2.162c3.204 0 3.584.012 4.85.07 1.366.062 2.633.336 3.608 1.311.975.975 1.249 2.242 1.311 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.336 2.633-1.311 3.608-.975.975-2.242 1.249-3.608 1.311-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.336-3.608-1.311-.975-.975-1.249-2.242-1.311-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.336-2.633 1.311-3.608.975-.975 2.242-1.249 3.608-1.311 1.266-.058 1.646-.07 4.85-.07M12 0C8.741 0 8.332.014 7.052.072 5.333.157 3.89.439 2.632 1.695 1.375 2.953 1.093 4.395 1.008 6.115.95 7.395.936 7.804.936 12s.014 4.605.072 5.885c.085 1.72.367 3.163 1.624 4.42 1.257 1.257 2.7 1.54 4.42 1.624 1.28.058 1.69.072 5.885.072s4.605-.014 5.885-.072c1.72-.085 3.163-.367 4.42-1.624 1.257-1.257 1.54-2.7 1.624-4.42.058-1.28.072-1.69.072-5.885s-.014-4.605-.072-5.885c-.085-1.72-.367-3.163-1.624-4.42-1.257-1.257-2.7-1.54-4.42-1.624C16.605.014 16.196 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"/>
+                    </svg>
+                </a> -->
+
+                <!-- WhatsApp SVG Icon -->
+                <a href="https://api.whatsapp.com/send?text={{ request.build_absolute_uri }}" 
+                    target="_blank" 
+                    style="text-decoration: none;" aria-label="Share this news on whatsapp">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#25D366">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.272-.099-.47-.148-.669.149-.197.297-.767.967-.94 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.787-1.48-1.76-1.653-2.057-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.149-.173.198-.297.297-.495.099-.198.05-.372-.025-.521-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.012-1.04 2.475 1.065 2.867 1.213 3.064c.149.198 2.095 3.2 5.076 4.487.71.306 1.263.49 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.717 2.006-1.413.248-.696.248-1.289.173-1.413-.075-.124-.272-.198-.57-.347zm-5.421 7.403h-.004a9.87 9.87 0 01-5.033-1.374l-.361-.214-3.741.982.998-3.648-.235-.374a9.864 9.864 0 01-1.506-5.26c0-5.466 4.453-9.916 9.927-9.916 2.654 0 5.144 1.035 7.013 2.91a9.885 9.885 0 012.913 7.017c-.001 5.467-4.453 9.917-9.928 9.917zm8.495-18.863A11.68 11.68 0 0012.05 0C5.495 0 .16 5.32.157 11.872c0 2.09.546 4.129 1.58 5.924L0 24l6.305-1.654a11.67 11.67 0 005.683 1.448h.005c6.554 0 11.89-5.32 11.893-11.872a11.724 11.724 0 00-3.446-8.317z"/>
+                    </svg>
+                </a>
+
+                <!-- Messenger SVG Icon -->
+                <!-- <a href="https://www.facebook.com/dialog/send?link={{ request.build_absolute_uri }}&app_id=968120322084676" 
+                    target="_blank" 
+                    style="text-decoration: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#0078FF">
+                        <path d="M12 0C5.373 0 0 5.2 0 11.62c0 3.548 1.766 6.709 4.537 8.804V24l4.144-2.275a11.576 11.576 0 003.319.447c6.627 0 12-5.2 12-11.62C24 5.2 18.627 0 12 0zm1.2 15.565l-3.068-3.252-5.98 3.252 6.598-7.017 3.186 3.252 5.882-3.252-6.618 7.017z"/>
+                    </svg>
+                </a>
+                                                 -->
+                                        <!-- Copy URL Button -->
+                                        <button onclick="copyToClipboard('{{ request.build_absolute_uri }}')" 
+        style="margin: 0 5px; background: none; border: none; cursor: pointer;" aria-label="Copy link to clipboard">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+    </svg>
+</button>
+
+
+<button style="background: none; border: none; cursor: pointer;" id="zoom-in" aria-label="Zoom in">
+    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27"
+         viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="16"></line>
+      <line x1="8" y1="12" x2="16" y2="12"></line>
+    </svg>
+  </button>
+  
+
+  <button style="margin: 0 5px; background: none; border: none; cursor: pointer;" id="zoom-out" aria-label="Zoom out">
+    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27"
+         viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="8" y1="12" x2="16" y2="12"></line>
+    </svg>
+  </button>
+
+
+                                    </div>
+
+                                
+                            
+                                    
+                              
+
+                                  
+                                </figure>
+
+                                
+
+
+
+                                <section  aria-labelledby="article-byline" class="bbc-1vjaf6b"><strong
+                                        id="article-byline" aria-hidden="true" class="bbc-m04vo2">Article
+                                        information</strong>
+
+                                    <ul role="list" class="bbc-1rvtlej">
+                                        <li><span role="text"><span class="bbc-m04vo2">Author, </span>
+                                           {% if news.reporter %} 
+                                            <span
+                                                     class="bbc-kr9jm9">{{news.reporter}}</span>
+                                                {% endif %}
+                                                </span></li>
+                                        <li><span role="text"><span class="bbc-m04vo2">Role, <!-- --> </span><span
+                                                    class="bbc-1qsxwj2">জাগরণ নিউজ বাংলা</span></span></li>
+                                        <li class="bbc-v8pmqw">
+                                            <div dir="ltr" class="bbc-19j92fr ebmt73l0"><time dateTime="{{ news.created_at|date:"M j, Y" }}"
+                                                    class="bbc-195rdch e1mklfmt0">   {{ news.created_at|bangla_date }}</time></div>
+                                        </li>
+                                    </ul>
+                                   
+                                </section>
+
+                                {% if news.sub_content %}
+                                <div dir="ltr" class="bbc-19j92fr ebmt73l0"><p dir="ltr" class="bbc-12k5sdr e17g058b0"><b>{{news.sub_content}}</b></p></div>
+                                {% endif %}
+
+                                {% if news.news_content %}
+                                <div dir="ltr" class="bbc-19j92fr ebmt73l0 news-content">
+                                    <p dir="ltr" class="bbc-12k5sdr e17g058b0" id="news-content">{{ news.news_content|clean_rich_text|safe }}</p>
+                                </div>
+                                {% endif %}
+                               
+
+ <div class="container">
+        <!-- Share Section -->
+        <div class="share-section">
+            <button class="share-button" onclick="copyToClipboard()">
+                🔗 শেয়ার করুন
+            </button>
+        </div>
+        
+        <!-- Pass news ID to JavaScript -->
+        <script>
+            window.newsId = {{ news.id }};
+        </script>
+
+        <!-- Reactions Section -->
+        <div class="reactions-container">
+            <h3 class="reactions-title">আপনার প্রতিক্রিয়া জানান</h3>
+            
+            <div class="reaction-buttons">
+                <button class="reaction-btn" data-reaction="love" onclick="addReaction('love')">❤️</button>
+                <button class="reaction-btn" data-reaction="clap" onclick="addReaction('clap')">👏</button>
+                <button class="reaction-btn" data-reaction="smile" onclick="addReaction('smile')">🙂</button>
+                <button class="reaction-btn" data-reaction="sad" onclick="addReaction('sad')">😞</button>
+            </div>
+
+            <div class="reaction-stats">
+                <div class="stat-item">
+                    <span class="stat-emoji">❤️</span>
+                    <div class="stat-label">Love</div>
+                    <div class="stat-count" id="love-count">{{ reaction_counts.love|default:0 }}</div>
+                    <div class="stat-percentage">({{ reaction_counts.love|default:0|floatformat:2 }} / {{ reaction_total|default:0 }} total)</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-emoji">👏</span>
+                    <div class="stat-label">Clap</div>
+                    <div class="stat-count" id="clap-count">{{ reaction_counts.clap|default:0 }}</div>
+                    <div class="stat-percentage">({{ reaction_counts.clap|default:0|floatformat:2 }} / {{ reaction_total|default:0 }} total)</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-emoji">🙂</span>
+                    <div class="stat-label">Smile</div>
+                    <div class="stat-count" id="smile-count">{{ reaction_counts.smile|default:0 }}</div>
+                    <div class="stat-percentage">({{ reaction_counts.smile|default:0|floatformat:2 }} / {{ reaction_total|default:0 }} total)</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-emoji">😞</span>
+                    <div class="stat-label">Sad</div>
+                    <div class="stat-count" id="sad-count">{{ reaction_counts.sad|default:0 }}</div>
+                    <div class="stat-percentage">({{ reaction_counts.sad|default:0|floatformat:2 }} / {{ reaction_total|default:0 }} total)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comment Section -->
+        <div class="comment-section">
+        
+            
+            <!-- For authenticated users -->
+            {% if user.is_authenticated %}
+            <div class="comment-form">
+                <textarea 
+                    class="comment-input" 
+                    placeholder="আপনার মন্তব্য লিখুন..."
+                    rows="4"
+                    name="comment"
+                ></textarea>
+                <button class="submit-btn" onclick="submitComment()">
+                    পোস্ট করুন
+                </button>
+            </div>
+            {% else %}
+            <!-- For non-authenticated users -->
+            <div class="login-message">
+                মন্তব্য করতে <a href="{% url 'login' %}?next={{ request.path }}" class="login-link">লগইন</a> করুন।
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+<!-- Review Form (already exists above) -->
+
+<!-- Reviews Section -->
+<div class="review-section" style="margin-top: 50px;">
+    <h3 style="margin-bottom: 20px; border-bottom: 2px solid #ccc; padding-bottom: 5px;">মন্তব্যসমূহ</h3>
+
+    {% if reviews %}
+        {% for review in reviews|slice:":5" %}
+            <div style="padding: 15px; margin-bottom: 15px; background: #f9f9f9; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                <div style="display: flex; justify-content: space-between;">
+                    <strong style="color: #333;">{{ review.user.get_full_name|default:review.user.username }}</strong>
+                    <small style="color: #999;">{{ review.created_at|date:"d M, Y h:i A" }}</small>
+                </div>
+                <p style="margin-top: 10px; line-height: 1.6; color: #444;">{{ review.comment }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p style="color: #666;">এই সংবাদের জন্য এখনো কোনো মন্তব্য নেই।</p>
+    {% endif %}
+</div>
+
+
+
+
+
+                                <!-- <section aria-label="বিজ্ঞাপন 2" aria-hidden="true" 
+                                    data-e2e="advertisement" class="bbc-geybui">
+                                    <div id="dotcom-mpu" class="dotcom-ad"></div>
+                                </section>
+ -->
+
+
+
+
+
+<br>
+
+
+
+<section aria-labelledby="low-feed-1" >
+    <h3>সম্পর্কিত নিউজ </h3>
+    <div data-testid="curation-grid-normal">
+       
+
+        
+     
+       
+    
+            <ul role="list" data-testid="topic-promos" class="bbc-k6wdzo">
+                {% for item in related_news %}
+                <li class="bbc-t44f9r">
+                    <div class="bbc-bjn8wh e1v051r10 news_sec">
+                        <div class="promo-images">
+                            <div class="bbc-1qfus8v e5q9uf21">
+                                <div class="bbc-j1srjl" style="padding-bottom:56.25%;overflow:hidden">
+                                    <picture>
+                                        <source srcSet="{{ item.heading_image.url }} 85w, {{ item.heading_image.url }} 120w, {{ item.heading_image.url }} 170w, {{ item.heading_image.url }} 232w, {{ item.heading_image.url }} 325w, {{ item.heading_image.url }} 450w, {{ item.heading_image.url }} 660w, {{ item.heading_image.url }} 800w" type="image/webp" sizes="(min-width: 63rem) 232px, (min-width: 37.5rem) 50vw, 33vw" />
+                                        <source srcSet="{{ item.heading_image.url }} 85w, {{ item.heading_image.url }} 120w, {{ item.heading_image.url }} 170w, {{ item.heading_image.url }} 232w, {{ item.heading_image.url }} 325w, {{ item.heading_image.url }} 450w, {{ item.heading_image.url }} 660w, {{ item.heading_image.url }} 800w" type="image/jpeg" sizes="(min-width: 63rem) 232px, (min-width: 37.5rem) 50vw, 33vw" />
+                                        <img src="{{ item.heading_image.url }}" alt="পত্রিকা" style="aspect-ratio:16 / 9" class="bbc-139onq" />
+                                    </picture>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="promo-text">
+                            <h3 class="bbc-qqcsu8 e47bds20">
+                                <a href="{{ item.get_absolute_url }}" class="focusIndicatorDisplayBlock bbc-uk8dsi e1d658bg0">{{ item.title }}</a>
+                            </h3>
+                            <time dateTime="{{ item.created_at }}" class="promo-timestamp bbc-un5gjj e1mklfmt0">{{ item.created_at|bangla_date }}</time>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        
+    </div>
+</section>
+
+
+  
+
+
+
+                          
+
+                          
+                               
+                             
+                            
+                            </main>
+
+
+
+                            <!-- <aside data-testid="related-topics" aria-labelledby="related-topics" role="complementary"
+                                class="bbc-1l5nxv5 e5jcirq1">
+                                <div class="e5jcirq0 bbc-1f2ds04 e1m6nvxw1">
+                                    <h2 class="bbc-1xclg2i e1m6nvxw0"><span class="bbc-1fttcpj e1fapd9x4"><span
+                                                class="bbc-127x8fy e1fapd9x2"><span dir="ltr" id="related-topics"
+                                                    class="bbc-9svztz e1fapd9x1">সম্পর্কিত বিষয়</span></span></span>
+                                    </h2>
+                                </div>
+                                <ul role="list" class="bbc-1c01ksb e2o6ii41">
+                                    <li class="bbc-q3w86m e2o6ii40"><a href="/bengali/topics/c1gdq31d620t">বাংলাদেশ
+                                            ছাত্র আন্দোলন</a></li>
+                                    <li class="bbc-q3w86m e2o6ii40"><a href="/bengali/topics/c2dwq2nd40xt">বাংলাদেশ</a>
+                                    </li>
+                                    <li class="bbc-q3w86m e2o6ii40"><a href="/bengali/topics/cqywj91rkg6t">রাজনীতি</a>
+                                    </li>
+                                </ul>
+                            </aside> -->
+
+
+
+                        </div>
+
+                    
+                        <div class="bbc-tpioxw">
+                            <div data-testid="top-stories" class="bbc-72c20u">
+                                <section aria-labelledby="top-stories-heading" 
+                                    data-e2e="top-stories-heading" class="bbc-8cenrp">
+                                    <div class="bbc-g47oqm e1m6nvxw1">
+                                        <h2 class="bbc-1xclg2i e1m6nvxw0"><span class="bbc-1fttcpj e1fapd9x4"><span
+                                                    class="bbc-127x8fy e1fapd9x2"><span dir="ltr"
+                                                        id="top-stories-heading" class="bbc-9svztz e1fapd9x1">প্রধান
+                                                        খবর</span></span></span></h2>
+                                    </div>
+                                    {% for item in main_news %}
+                                    <ul class="bbc-lvnea5 e1f16x8o0">
+
+                                       
+                                        <li class="bbc-s6v87m e1eoj41e0">
+                                            <div class="bbc-ey9z5j">
+                                                <div class="bbc-70p486 epcp8l40">
+                                                    <div class="bbc-2xm90o epcp8l41">
+                                                        <h3 class="bbc-1nc9jnp e1j5zm900"><a data-testid="promo-link"
+                                                                class=" focusIndicatorDisplayInlineBlock bbc-154s5g9 e1ifqd8t0"
+                                                                href="{{ item.get_absolute_url }}"
+                                                                aria-labelledby="top-stories-promo-{{ forloop.counter }}"><span id="top-stories-promo-{{ forloop.counter }}" role="text"><span
+                                                                        lang="en-GB" class="bbc-m04vo2">,
+                                                                    </span><span>{{item.title}}</span></span></a></h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                 
+
+                                    </ul>
+                                    {% endfor %}
+                                </section>
+                            </div>
+
+                            <div data-testid="features" class="bbc-10pxgv6">
+                                <section data-e2e="features-analysis-heading" 
+                                    aria-labelledby="features-analysis-heading" class="bbc-6bz6fw e1l4j50z3">
+                                    <div class="e1l4j50z1 bbc-g47oqm e1m6nvxw1">
+                                        <h2 class="bbc-1xclg2i e1m6nvxw0"><span class="bbc-1fttcpj e1fapd9x4"><span
+                                                    class="bbc-127x8fy e1fapd9x2"><span dir="ltr"
+                                                        id="features-analysis-heading"
+                                                        class="bbc-9svztz e1fapd9x1">নির্বাচিত খবর</span></span></span>
+                                        </h2>
+                                    </div>
+                                    <ul role="list" class="bbc-ofnqcj eowmifl1">
+
+                                        {% for item in elected_news %}
+                                        <li class="bbc-1q5cdze eowmifl0">
+                                            <div data-testid="frosted-promo-0" class="bbc-oz5u0n"><a
+                                                    href="{{ item.get_absolute_url }}" aria-hidden="true"
+                                                    tabindex="-1" class="bbc-18rv2kn"></a>
+                                                <div class="bbc-1bepigl" style="padding-bottom:56.3%;overflow:hidden">
+
+                                                    {% if item.heading_image %}
+                                                    <img src="{{item.heading_image.url}}"
+                                             
+                                 
+                                                        alt="{{item.title}}"
+                                   
+                                                        class="bbc-139onq" />
+                                                        {% elif item.main_image %}
+
+                                                        <img src="{{item.main_image.url}}"
+                                                   
+                                                    
+                                                        alt="{{item.title}}"
+                                                 
+                                                      class="bbc-139onq" />
+                                                        {% endif %}
+
+                                                    </div>
+                                                    
+
+                                                   
+                                                <div class="lazyload-wrapper bbc-10klw3m">
+                                                    <div data-testid="frosted-glass-lazyload-placeholder"
+                                                        class="bbc-7gzyga">
+                                                        <h3 class="bbc-1uk1gs8"><a href="{{ item.get_absolute_url }}"
+                                                                class="bbc-hmbapf">{{item.title}}</a></h3><time
+                                                            dateTime="2024-11-11" class="bbc-lkd68d e1mklfmt0">{{item.created_at|bangla_date}}</time>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                     {% endfor %}
+                                    </ul>
+                                </section>
+                            </div>
+                        </div>
+                   
+                        
+                    </div>
+
+                    <section  aria-labelledby="Most-Read" data-e2e="most-read" data-testid="most-read"
+                        class="bbc-1pg0aej">
+                        <div class="bbc-1rpw6bb e1m6nvxw1">
+                            <h2 class="bbc-1xclg2i e1m6nvxw0"><span class="bbc-1fttcpj e1fapd9x4"><span
+                                        class="bbc-127x8fy e1fapd9x2"><span dir="ltr" id="Most-Read"
+                                            class="bbc-9svztz e1fapd9x1">সর্বাধিক পঠিত</span></span></span></h2>
+                        </div>
+                        <ol role="list" class="bbc-lx5wvu ebmt73l0" dir="ltr">
+                            {% for news in most_read_news %}
+                            <li role="listitem" class="bbc-jsrhcr ebmt73l0" dir="ltr">
+                                <div class="bbc-1is9yal">
+                                    <div dir="ltr" class="bbc-1mfcynm"><span class="bbc-uo8uve">{{forloop.counter|to_bengali}}</span></div>
+                                    <div dir="ltr" class="bbc-14zb6im"><a
+                                            href="{{news.get_absolute_url}}"
+                                            class="focusIndicatorDisplayTableCell bbc-hq7sa5">{{news.title}}</a></div>
+                                </div>
+                            </li>
+                           {% endfor %}
+                           
+                        </ol>
+                    </section>
+
+
+                </div>
+            </div>
+        
+
+
+<script>
+    window.isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
+    window.newsId = {{ news.id }};
+</script>
+
+
+
+
+
+
+<script>
+    function copyToClipboard(url) {
+        // Get the short URL via AJAX
+        fetch('/api/create-short-url/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: 'url=' + encodeURIComponent(url)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.short_url) {
+                // Copy the shortened URL to clipboard
+                navigator.clipboard.writeText(data.short_url).then(function() {
+                    // Show a tooltip or notification that the link was copied
+                    alert("Link copied to clipboard!");
+                }, function(err) {
+                    console.error('Could not copy text: ', err);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Fall back to copying the original URL
+            navigator.clipboard.writeText(url);
+            alert("Original link copied to clipboard");
+        });
+    }
+    </script>
+
+
+
+<script>
+    document.getElementById('zoom-in').addEventListener('click', function() {
+    var content = document.getElementById('news-content');
+    var currentFontSize = window.getComputedStyle(content).fontSize;
+    var newFontSize = (parseInt(currentFontSize) * 1.1) + 'px'; // Increase font size by 10%
+    content.style.fontSize = newFontSize;
+});
+
+document.getElementById('zoom-out').addEventListener('click', function() {
+    var content = document.getElementById('news-content');
+    var currentFontSize = window.getComputedStyle(content).fontSize;
+    var newFontSize = (parseInt(currentFontSize) / 1.1) + 'px'; // Decrease font size by 10%
+    content.style.fontSize = newFontSize;
+});
+
+</script>
+
+       
+       
+<style>
+    .video-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
+    
+    
+    @media (max-width: 600px) {
+        .video-container {
+            flex: 0 0 48%; /* On smaller screens, show two per row */
+        }
+    }
+    
+    
+    .bbc-bjn8wh {
+        position: relative;
+    }
+    
+    @media (min-width: 0px) and (max-width: 599px) {
+        .bbc-bjn8wh {
+            position: relative;
+            display: flex !important;
+        }
+    }
+
+
+    @media (min-width: 63rem) {
+    .bbc-t44f9r .promo-images {
+        display: none;
+    }
+}
+         </style>
+
+
+<script>
+document.querySelectorAll('#reaction-form button').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const reaction = btn.getAttribute('data-reaction');
+        const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+        fetch("{% url 'react_to_news' news.id %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken,
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `reaction=${reaction}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok') {
+                alert('Thank you for your feedback!');
+                location.reload(); // refresh to update stats
+            }
+        });
+    });
+});
+</script>
+
+
+ <style>
+  
+
+        /* Share Button */
+        .share-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .share-button {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .share-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
+        }
+
+        .share-button:active {
+            transform: translateY(-1px);
+        }
+
+        /* Reactions Section */
+        .reactions-container {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.2);
+        }
+
+        .reactions-title {
+            color: white;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .reaction-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .reaction-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50px;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .reaction-btn:hover {
+            transform: scale(1.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .reaction-btn:active {
+            transform: scale(1.1);
+        }
+
+        .reaction-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-emoji {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .stat-count {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 3px;
+        }
+
+        .stat-percentage {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        /* Comment Form */
+        .comment-section {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(168, 237, 234, 0.2);
+        }
+
+        .comment-title {
+            color: #2c3e50;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .comment-input {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 15px 20px;
+            font-size: 16px;
+            min-height: 120px;
+            resize: vertical;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-input:focus {
+            outline: none;
+            border-color: #4ECDC4;
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
+        }
+
+        .comment-input::placeholder {
+            color: #95a5a6;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #4ECDC4, #44A08D);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+            box-shadow: 0 8px 25px rgba(68, 160, 141, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(68, 160, 141, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .login-message {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            color: #2c3e50;
+            font-size: 16px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-link {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .login-link:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .reaction-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .reaction-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-emoji {
+                font-size: 24px;
+            }
+
+            .stat-count {
+                font-size: 18px;
+            }
+        }
+
+        /* Animation for page load */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+
+ <script>
+        // Get CSRF token
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+ function addReaction(type) {
+    if (!window.isAuthenticated) {
+        showNotification('দয়া করে আগে লগইন করুন।', 'error');
+        return;
+    }
+
+    const btn = document.querySelector(`[data-reaction="${type}"]`);
+    const countElement = document.getElementById(`${type}-count`);
+
+    // Visual feedback
+    btn.style.transform = 'scale(1.3)';
+    btn.style.pointerEvents = 'none';
+
+    setTimeout(() => {
+        btn.style.transform = '';
+        btn.style.pointerEvents = 'auto';
+    }, 200);
+
+    const csrfToken = getCookie('csrftoken');
+
+    fetch(`/news/react/${window.newsId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken,
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `reaction=${type}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'ok') {
+            showNotification('প্রতিক্রিয়া যোগ করা হয়েছে!', 'success');
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        } else {
+            showNotification('প্রতিক্রিয়া যোগ করতে সমস্যা হয়েছে', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('প্রতিক্রিয়া যোগ করতে সমস্যা হয়েছে', 'error');
+    });
+}
+
+
+        // Copy to clipboard functionality
+        function copyToClipboard() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                showNotification('লিংক কপি করা হয়েছে!', 'success');
+            }).catch(() => {
+                showNotification('লিংক কপি করতে সমস্যা হয়েছে', 'error');
+            });
+        }
+
+        // Submit comment functionality with Django backend
+        function submitComment() {
+            const textarea = document.querySelector('.comment-input');
+            const comment = textarea.value.trim();
+            
+            if (!comment) {
+                showNotification('মন্তব্য লিখুন', 'error');
+                return;
+            }
+            
+            // Get CSRF token
+            const csrfToken = getCookie('csrftoken');
+            
+            // Disable submit button to prevent multiple submissions
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'পোস্ট করা হচ্ছে...';
+            
+            // Send comment to Django backend
+            fetch(`/news/detail/${window.newsId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `comment=${encodeURIComponent(comment)}`
+            })
+            .then(response => {
+                if (response.ok) {
+                    showNotification('মন্তব্য সফলভাবে পোস্ট করা হয়েছে!', 'success');
+                    textarea.value = '';
+                    // Reload page to show new comment
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('মন্তব্য পোস্ট করতে সমস্যা হয়েছে', 'error');
+            })
+            .finally(() => {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'পোস্ট করুন';
+            });
+        }
+
+        // Handle Enter key in textarea (Ctrl+Enter to submit)
+        document.addEventListener('DOMContentLoaded', function() {
+            const textarea = document.querySelector('.comment-input');
+            if (textarea) {
+                textarea.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey && e.key === 'Enter') {
+                        submitComment();
+                    }
+                });
+            }
+        });
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 10px;
+                color: white;
+                font-weight: 600;
+                z-index: 1000;
+                animation: slideIn 0.3s ease-out;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            `;
+            
+            if (type === 'success') {
+                notification.style.background = 'linear-gradient(45deg, #4ECDC4, #44A08D)';
+            } else if (type === 'error') {
+                notification.style.background = 'linear-gradient(45deg, #c51212, #FF5252)';
+            }
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Add slide-in animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</head>
+
+
+
+{% endblock body %}

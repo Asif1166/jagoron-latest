@@ -1,0 +1,210 @@
+            <!-- header start -->
+            <header role="banner" >
+        
+
+
+                <nav role="navigation" dir="ltr" class="bbc-1lmzg8c e11sm0on0 pc-navigation-only">
+                    <div class="bbc-14sj40g e11sm0on5">
+
+
+
+                        <div class="navbar-logo">
+                            
+                            <div>
+                                <div class="ep1mqcj0 bbc-1vsz7zf e10yv9r12">
+                                    <div class="bbc-1dg7u9h e10yv9r13"><a href="/" id="topPage"
+                                            class="focusIndicatorRemove bbc-1re47cx e10yv9r11"
+                                            aria-labelledby="BrandLink-topPage">
+                                            <img width="250" src="{{site_info.logo.url}}" alt="">
+                                       
+                                            
+                                            <span id="BrandLink-topPage" role="text" class="bbc-m04vo2"><span lang="en-GB">BBC
+                                                    News, </span><span>বাংলা</span></span></a><a dir="ltr" href="#content"
+                                            class="focusIndicatorRemove bbc-1tr924h e126dcnt0">
+                                            <div>সরাসরি কনটেন্টে যান</div>
+                                        </a></div>
+                                </div>
+                            </div>
+                    </div>
+
+
+                        <div class="bbc-bjn8wh e1h1xvny0 pc-navigation"><button type="button" aria-expanded="false" dir="ltr"
+                                class="focusIndicatorRemove bbc-1n75b6b ebniykg0"><svg focusable="false" width="2.75rem"
+                                    height="2.75rem" viewBox="0 0 44 44" aria-hidden="true"
+                                    class="bbc-nhbdtu e11bbplg0">
+                                    <path d="M12 29h21v-2.333H12V29zm0-5.833h21v-2.334H12v2.334zM12 15v2.333h21V15H12z">
+                                    </path>
+                                </svg><span class="bbc-m04vo2">সেকশন</span></button>
+
+
+
+                                
+
+
+                            <div data-e2e="scrollable-nav" dir="ltr" class="bbc-mcfoow ekdzu100">
+
+
+
+                                
+
+
+                                <ul role="list" class="bbc-11krpir e11sm0on4">
+                                    <li dir="ltr" role="listitem" class="bbc-zakhp8 e11sm0on2"><a href="/"
+                                            aria-labelledby="NavigationLinks-মূলপাতা"
+                                            class="focusIndicatorRemove bbc-hwkcvg e11sm0on3"><span role="text"
+                                                id="NavigationLinks-মূলপাতা" class="bbc-aqw31p e11sm0on1"><span
+                                                    class="bbc-m04vo2">বর্তমান পেজ, </span>মূলপাতা</span></a></li>
+
+                                                    {% for nav in navbar_item %}
+
+                                                    <li dir="ltr" role="listitem" class="bbc-zakhp8 e11sm0on2"><a href="{{ nav.get_absolute_url }}"
+                                                        aria-labelledby="NavigationLinks-মূলপাতা"
+                                                        class="focusIndicatorRemove bbc-hwkcvg e11sm0on3"><span role="text"
+                                                            id="NavigationLinks-মূলপাতা" class=" e11sm0on1"><span
+                                                                class="bbc-m04vo2"></span>{{nav.title}}</span></a></li>
+
+
+
+
+                                            {% endfor %}
+                                    
+                                </ul>
+                            </div>
+                        </div>
+
+
+                   
+                        <div data-e2e="dropdown-nav" height="0" class="bbc-1x40ipt ebniykg6 hide-mobile">
+                            <ul role="list" class="bbc-dz10ac ebniykg4">
+                                {% for nav in navbar_item %}
+                                    <li role="listitem" class="bbc-89wdkq ebniykg3">
+                                        <a href="{{ nav.get_absolute_url }}" aria-labelledby="dropdownNavigation-{{ nav.title }}" class="bbc-19pkjmb ebniykg2">
+                                            <span id="dropdownNavigation-{{ nav.title }}">{{ nav.title }}</span>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            
+                        </div> 
+
+                        
+                    </div>
+                </nav>
+
+                
+            </header>
+                <!-- header end -->
+
+
+
+
+
+
+
+                            <!-- header start -->
+            <header role="banner" class="mobile-navigation-only">
+              
+                <div style="background-color: #c51212">
+                    <div class="ep1mqcj0 bbc-1vsz7zf e10yv9r12">
+                        <div class="bbc-1dg7u9h e10yv9r13"><a href="/" id="topPage"
+                                class="focusIndicatorRemove bbc-1re47cx e10yv9r11"
+                                aria-labelledby="BrandLink-topPage">
+                                
+                                <img width="250" src="{{site_info.logo.url}}" alt="">
+                       
+                                    
+                                    
+                                    </a>
+                                    
+                           
+                        
+                        </div>
+                    </div>
+                </div>
+
+                <nav role="navigation" dir="ltr" class="bbc-1lmzg8c e11sm0on0 hide-pc" style="background-color: aliceblue !important;">
+                    <div class="bbc-14sj40g e11sm0on5">
+                        <div class="bbc-bjn8wh e1h1xvny0">
+                            
+                            
+                          
+                            <div data-e2e="scrollable-nav" dir="ltr" class="bbc-mcfoow ekdzu100">
+                                <ul role="list" class="bbc-11krpir e11sm0on4">
+                                   
+                                    
+                                                    <li dir="ltr" role="listitem" class="bbc-zakhp8 e11sm0on2"><a
+                                                        href="/"
+                                                        class="focusIndicatorRemove bbc-azrnys e11sm0on3">মূলপাতা</a></li>
+
+                                                    {% for nav in navbar_item %}
+                                     <li dir="ltr" role="listitem" class="bbc-zakhp8 e11sm0on2"><a
+                                            href="{{ nav.get_absolute_url }}"
+                                            class="focusIndicatorRemove bbc-azrnys e11sm0on3">{{ nav.title }}</a></li>
+
+                                            {% endfor %}
+                                
+                                </ul>
+                            </div>
+                        </div>
+                      
+                    </div>
+                </nav>   
+            </header>
+                <!-- header end -->
+
+
+
+
+
+
+
+
+
+
+
+
+                <style>
+                    .navbar-logo {
+    float: left;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+}
+
+
+
+                </style>
+
+
+
+<style>
+    /* Hide PC navigation on mobile screens */
+    .pc-navigation-only {
+        display: none;
+    }
+
+    /* Hide mobile navigation on larger screens */
+    .mobile-navigation-only {
+        display: none;
+    }
+
+    /* Show PC navigation on screens wider than 768px */
+    @media screen and (min-width: 768px) {
+        .pc-navigation-only {
+            display: block;
+        }
+        .mobile-navigation-only {
+            display: none;
+        }
+    }
+
+    /* Show mobile navigation on screens up to 768px */
+    @media screen and (max-width: 767px) {
+        .pc-navigation-only {
+            display: none;
+        }
+        .mobile-navigation-only {
+            display: block;
+        }
+    }
+</style>

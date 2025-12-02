@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Our Editor{% endblock %}
+
+{% block body %}
+<style>
+    .editor-profile-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        text-align: center;
+        font-family: sans-serif;
+    }
+    .editor-photo {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #fff;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .editor-name {
+        font-size: 2.5em;
+        margin: 10px 0 5px 0;
+    }
+    .editor-title {
+        font-size: 1.2em;
+        color: #e62424; /* A red color to match your site */
+        margin-bottom: 20px;
+    }
+    .editor-bio {
+        font-size: 1.1em;
+        line-height: 1.6;
+        color: #333;
+        text-align: left;
+    }
+</style>
+
+<div class="editor-profile-container">
+    <img src="{% static 'image/editor_photo.jpg' %}" alt="Photo of The Editor" class="editor-photo">
+
+    <h1 class="editor-name">MD SADDAM HOSEN</h1>
+    <p class="editor-title">Editor-in-Chief</p>
+    
+    <div class="editor-bio">
+        <p>
+            Saddam Hosen stands as the Editor-in-Chief of Jagoron News, where he leads with conviction, vision, and an unwavering commitment to principled journalism. With over five years of professional experience in the field, he has already established himself as a prominent editorial voice in Bangladesh’s media landscape. His leadership is distinguished not only by a dedication to factual, ethical, and impactful reporting but also by an ability to navigate the ever-evolving demands of a digital-first age.
+        </p>
+        <p>
+            With a formative background that blends analytical discipline and forward-looking creativity, Saddam approaches journalism with rare depth. His early academic and professional journey instilled in him a structured way of thinking, an adaptability to change, and a capacity to envision innovation within tradition. This foundation now empowers him to lead Jagoron News with clarity, ensuring it remains a trusted platform for truth and transparency.
+        </p>
+        <p>
+            Beyond the newsroom, Saddam Hosen is deeply engaged in leadership across multiple spheres. He has played an active role in guiding several organizations and youth communities, nurturing the next generation with ideals of responsibility, progress, and civic awareness. His involvement as a member of both national and international forums reflects his commitment to fostering dialogue, collaboration, and knowledge-sharing across borders.
+        </p>
+        <p>
+            As Editor-in-Chief, his editorial philosophy champions rigorous reporting, meaningful storytelling, and the amplification of voices often left unheard. Under his stewardship, Jagoron News aspires to be more than a news outlet, it seeks to be a beacon of trust, a forum for public discourse, and a catalyst for positive social change.
+        </p>
+    </div>
+</div>
+{% endblock body %}

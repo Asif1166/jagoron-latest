@@ -1,0 +1,612 @@
+
+
+
+
+
+{% load bangla_filters %}
+{% load custom_filters %}
+
+<style>
+    .active-nav {
+    color: #c51212 !important;  /* Change to your desired active color */
+ 
+    border-bottom: 2px solid #c51212;
+}
+
+</style>
+
+<script>
+window.addEventListener("load", function () {
+    if (location.hash.startsWith("#gsc.tab")) {
+        history.replaceState(null, null, window.location.pathname + window.location.search);
+    }
+});
+window.addEventListener("hashchange", function () {
+    if (location.hash.startsWith("#gsc.tab")) {
+        history.replaceState(null, null, window.location.pathname + window.location.search);
+    }
+});
+</script>
+
+            <header role="banner" >
+              
+                <div style="background-color: #c51212;">
+                    <div style="max-width: 1200px; margin: 0 auto; padding: 3px 8px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <!-- Left: Date -->
+                            <div style="color: white; font-size: 16px; display: flex; align-items: center; gap: 8px;" class="date-container for-desctop">
+                                <div>
+                                    <svg width="20" height="20" viewBox="0 0 100 100">
+                                        <!-- Background -->
+                                        <rect x="10" y="20" width="80" height="70" rx="10" ry="10" fill="white" stroke="white" stroke-width="4"/>
+                                        
+                                        <!-- Calendar Header -->
+                                        <rect x="10" y="20" width="80" height="15" fill="white"/>
+                                        
+                                        <!-- Calendar Rings -->
+                                        <circle cx="30" cy="15" r="5" fill="white"/>
+                                        <circle cx="70" cy="15" r="5" fill="white"/>
+                                        
+                                        <!-- Calendar Grid -->
+                                        <rect x="25" y="40" width="10" height="10" fill="red"/>
+                                        <rect x="45" y="40" width="10" height="10" fill="red"/>
+                                        <rect x="65" y="40" width="10" height="10" fill="red"/>
+                                        
+                                        <rect x="25" y="60" width="10" height="10" fill="red"/>
+                                        <rect x="45" y="60" width="10" height="10" fill="red"/>
+                                        <rect x="65" y="60" width="10" height="10" fill="red"/>
+                                    </svg>
+                                </div>
+                                
+                                <div>
+                                    {% with day=current_date.day|bangla_number month=current_date.month|bangla_month year=current_date.year|bangla_number %}
+                                        {{ day }} {{ month }}, {{ year }}
+                                    {% endwith %}
+                                </div>
+                            </div>
+                            
+                            
+                            <!-- Center: Logo -->
+                            <div>
+                                <a href="/" id="topPage" style="display: block; text-align: center; padding:7px;">
+                                    <img width="200" height="auto" src="{{ site_info.logo.url }}" alt="Site Logo">
+                                </a>
+                            </div>
+                            
+                            <!-- Right: Search -->
+                            
+
+                            <div style="color: white; font-size: 16px; display: flex; justify-content: space-between; align-items: center;" class="for-desctop">
+                                <!-- Search Section -->
+                                <!--<div class="search-container" style="flex-grow: 1;">-->
+                                <!--    <form method="get" action="{% url 'search_news' %}" style="display: flex; align-items: center; width: 100%;">-->
+                                <!--        <input type="text" name="q" class="search-input" placeholder="Search..." style="flex-grow: 1;">-->
+                                <!--        <button type="submit" class="search-button" style="margin-left: 10px;" aria-label="search">-->
+                                <!--            <svg width="16" height="16" viewBox="0 0 100 100">-->
+                                                <!-- Search Circle -->
+                                <!--                <circle cx="40" cy="40" r="25" stroke="red" stroke-width="10" fill="none"/>-->
+                                                <!-- Search Handle -->
+                                <!--                <line x1="60" y1="60" x2="85" y2="85" stroke="red" stroke-width="10" stroke-linecap="round"/>-->
+                                <!--            </svg>-->
+                                <!--        </button>-->
+                                <!--    </form>-->
+                                <!--</div>-->
+                                
+                                <script async src="https://cse.google.com/cse.js?cx=65d30f40dd7994816" gname="jagoronsearch">
+</script>
+<div class="gcse-search"></div>
+<!--<div class="gcse-searchbox-only"></div>-->
+<!--<div class="gcse-searchresults-only"></div>-->
+
+
+                            
+                                <!-- Video Section -->
+                                <div style="margin-left: 10px; margin-top: 2px;">
+                                    <a href="/news/?section=8" aria-label="Youtube News">
+                                        <svg width="53" height="53" viewBox="0 0 100 100">
+                                            <!-- Video Background -->
+                                            <rect x="10" y="20" width="80" height="60" rx="10" ry="10" fill="red" stroke="red" stroke-width="4"/>
+                                            <!-- Play Button (Triangle) -->
+                                            <polygon points="40,35 40,65 70,50" fill="white"/>
+                                        </svg>
+                                    </a>
+                                </div>
+
+
+<div style="margin-left: 10px; display: flex; gap: 10px; align-items: center;">
+    <!-- User Profile Icon -->
+
+
+    {% if user.is_authenticated %}
+
+    <!-- Login Icon -->
+<a href="/logout" aria-label="Logout" title="Logout">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+        <path d="M16 13v-2H7V8l-5 4 5 4v-3h9zm3-10H5c-1.1 0-2 .9-2 2v6h2V5h14v14H5v-4H3v6c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
+    </svg>
+</a>
+
+</a>
+
+    {% else %}
+
+
+    <!-- Register Icon -->
+    <a href="/login" aria-label="Login" title="Login">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+            <path d="M15 14c2.7 0 4.8-2.1 4.8-4.8S17.7 4.4 15 4.4 10.2 6.5 10.2 9.2 12.3 14 15 14zm0 2.4c-2.5 0-7.5 1.3-7.5 3.6v1.6H22.5v-1.6c0-2.3-5-3.6-7.5-3.6zM5 10v2H2v2h3v2h2v-2h3v-2H7v-2H5z"/>
+        </svg>
+    </a>
+    {% endif %}
+</div>
+
+                            </div>
+                            
+                            
+
+
+                         
+
+
+                            
+
+                        </div>
+                    </div>
+                </div>
+                
+                
+
+                <nav role="navigation" dir="ltr" class="bbc-1lmzg8c e11sm0on0 hide-pc" style="background-color: white !important;">
+                    <div class="bbc-14sj40g e11sm0on5">
+                        <div class="bbc-bjn8wh e1h1xvny0">
+                            
+                            <button type="button" id="navToggle" class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation menu">
+                                <svg focusable="false" width="2.75rem" height="2.75rem" viewBox="0 0 44 44" aria-hidden="true">
+                                    <path d="M12 29h21v-2.333H12V29zm0-5.833h21v-2.334H12v2.334zM12 15v2.333h21V15H12z"></path>
+                                </svg>
+                             
+                            </button>
+                          
+                            <div data-e2e="scrollable-nav" dir="ltr" class="bbc-mcfoow ekdzu100">
+                        <ul role="list" class="bbc-11krpir e11sm0on4">
+    <li dir="ltr" role="listitem" class="bbc-zakhp8 e11sm0on2">
+        <a href="/" class="focusIndicatorRemove bbc-azrnys e11sm0on3">মূলপাতা</a>
+    </li>
+
+    
+
+    {% for nav in navbar_item %}
+        {% if nav.id|stringformat:"s" == request.GET.section %}
+            <!-- Active item -->
+            <li dir="ltr" role="listitem" class="bbc-zakhp8 e11sm0on2">
+                <a href="{{ nav.get_absolute_url }}" class="focusIndicatorRemove bbc-azrnys e11sm0on3 active-nav">
+                    {{ nav.title }}
+                </a>
+            </li>
+        {% else %}
+            <!-- Inactive item -->
+            <li dir="ltr" role="listitem" class="bbc-zakhp8 e11sm0on2">
+                <a href="{{ nav.get_absolute_url }}" class="focusIndicatorRemove bbc-azrnys e11sm0on3">
+                    {{ nav.title }}
+                </a>
+            </li>
+        {% endif %}
+    {% endfor %}
+
+</ul>
+
+
+
+
+
+
+                            </div>
+
+
+
+
+
+
+
+
+                         <div id="dropdownNav" class="dropdown-nav">
+    <ul role="list" class="dropdown-list">
+        <li role="listitem">
+            <a href="/">
+                <span dir="ltr" role="text">
+                    <span class="current-page"></span>মূলপাতা
+                </span>
+            </a>
+        </li>
+
+<ul class="mobile-menu">
+    {% for nav in navbar_item %}
+        <li class="menu-item">
+            <div class="menu-title">
+                <a href="{{ nav.get_absolute_url }}">{{ nav.title }}</a>
+
+                {% if subsection_map|get_item:nav.id %}
+                    <button class="toggle-submenu">+</button>
+                {% endif %}
+            </div>
+
+            {% if subsection_map|get_item:nav.id %}
+                <ul class="subsection-list hidden">
+                    {% for sub in subsection_map|get_item:nav.id %}
+                        <li>
+                            <a href="/news?section={{ nav.id }}&sub_section={{ sub.id }}">{{ sub.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+
+<div style=" display: flex; gap: 10px; align-items: center;">
+    <!-- User Profile Icon -->
+
+
+    {% if user.is_authenticated %}
+
+    <!-- Login Icon -->
+<a href="/logout" aria-label="Logout">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+        <path d="M16 13v-2H7V8l-5 4 5 4v-3h9zm3-10H5c-1.1 0-2 .9-2 2v6h2V5h14v14H5v-4H3v6c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
+    </svg>
+    Logout
+</a>
+
+
+    {% else %}
+
+
+    <!-- Register Icon -->
+    <a href="/login" aria-label="Register">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+            <path d="M15 14c2.7 0 4.8-2.1 4.8-4.8S17.7 4.4 15 4.4 10.2 6.5 10.2 9.2 12.3 14 15 14zm0 2.4c-2.5 0-7.5 1.3-7.5 3.6v1.6H22.5v-1.6c0-2.3-5-3.6-7.5-3.6zM5 10v2H2v2h3v2h2v-2h3v-2H7v-2H5z"/>
+        </svg>
+        Login
+    </a>
+    {% endif %}
+</div>
+
+
+
+
+    </ul>
+
+
+    
+</div>
+
+
+
+                        </div>
+                      
+                    </div>
+                </nav>   
+
+
+
+
+                
+            </header>
+                <!-- header end -->
+                
+                
+                
+                        {% if current_url == "https://jagoronnews.com/" %}
+                
+                 <style>
+  
+                    .news-container {
+                     
+                
+                      font-size: 16px;
+                      font-weight: bold;
+                      text-transform: uppercase;
+                      letter-spacing: 2px;
+                      animation: ticker 15s infinite linear;
+                    }
+                
+                
+                
+                    /* Ticker animation */
+                    @keyframes ticker {
+                      from {
+                        transform: translateX(100%);
+                      }
+                      to {
+                        transform: translateX(-100%);
+                      }
+                    }
+                  </style>    
+                
+<!--<header role="banner">-->
+<!--    <nav role="navigation" dir="ltr" class="bbc-1lmzg8c e11sm0on0 hide-pc" style="background-color: white !important;">-->
+<!--        <div class="bbc-14sj40g e11sm0on5">-->
+<!--            <div class="bbc-bjn8wh e1h1xvny0">-->
+<!--                <div data-e2e="scrollable-nav" dir="ltr" class="bbc-mcfoow ekdzu100">-->
+<!--                    <ul role="list" class="bbc-11krpir e11sm0on4" style="padding-top: 10px;">-->
+                
+<!--                            <div class="news-container">-->
+<!--                                                                              <p>ঢাকায় আজকের সেহরি ও ইফতারের সময়সূচী: সেহরি- <span style="color: #f70f0f;">{{ sehri_time }}</span> , ইফতার- <span style="color: #f70f0f;">{{ iftar_time }}</span></p>-->
+
+<!--                            </div>-->
+                     
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </nav>-->
+<!--</header>-->
+
+   {% endif %}
+
+
+
+
+
+
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const navToggle = document.getElementById('navToggle');
+                        const dropdownNav = document.getElementById('dropdownNav');
+                        
+                        navToggle.addEventListener('click', function() {
+                            const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+                            navToggle.setAttribute('aria-expanded', !isExpanded);
+                            dropdownNav.classList.toggle('show');
+                        });
+                    
+                        // Close dropdown when clicking outside
+                        document.addEventListener('click', function(event) {
+                            if (!navToggle.contains(event.target) && !dropdownNav.contains(event.target)) {
+                                navToggle.setAttribute('aria-expanded', 'false');
+                                dropdownNav.classList.remove('show');
+                            }
+                        });
+                    });
+                    </script>
+
+
+
+
+
+                <style>
+
+
+
+                    .navbar-logo {
+    float: left;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.search-input {
+    padding: 8px 12px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 200px;
+}
+
+.search-button {
+    background: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    color: #f70f0f;
+    display: flex;
+    align-items: center;
+}
+
+.search-button:hover {
+    color: #f70f0f;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .search-input {
+        width: 150px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    /* Hide the current date and search bar */
+    .date-container, .search-container {
+        display: none;
+    }
+    .for-desctop {
+        display: none !important;
+    }
+    .bbc-1lmzg8c{
+        height: 2rem !important;
+    }
+}
+
+                </style>
+
+
+
+<style>
+    .mobile-nav {
+        width: 100%;
+    }
+    
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .nav-wrapper {
+        position: relative;
+    }
+    
+    .nav-toggle {
+        background: none;
+        border: none;
+        padding: 5px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+    
+    .nav-toggle svg {
+        fill: currentColor;
+    }
+    
+    .section-text {
+        margin-left: 8px;
+    }
+    
+    .dropdown-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #000;
+        z-index: 1000;
+    }
+    
+    .dropdown-nav.show {
+        display: block;
+    }
+    
+    .dropdown-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .dropdown-list li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .dropdown-list a {
+        color: white;
+        text-decoration: none;
+        padding: 15px 20px;
+        display: block;
+    }
+    
+    .dropdown-list a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .current-page {
+        color: #757575;
+    }
+    
+    @media (min-width: 768px) {
+        .nav-toggle {
+            display: none;
+        }
+    }
+    </style>
+    
+    
+    
+    
+    <style>
+        .mobile-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-item {
+    border-bottom: 1px solid #333;
+}
+
+.menu-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    cursor: pointer;
+}
+
+.toggle-submenu {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+.subsection-list {
+    list-style: none;
+    padding-left: 20px;   /* left padding for indentation */
+    margin: 5px 0;
+    display: none;
+    background: #111;     /* slightly darker background */
+    border-left: 2px solid #444;  /* nice left border */
+}
+
+.subsection-list li {
+    padding: 6px 10px;
+    border-bottom: 1px solid #222;
+}
+
+.subsection-list li a {
+    color: #ccc;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.subsection-list li a:hover {
+    color: #fff;
+}
+
+.subsection-list.show {
+    display: block;
+}
+
+
+.hidden {
+    display: none;
+}
+
+    </style>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".toggle-submenu").forEach(button => {
+        button.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            let submenu = this.parentElement.nextElementSibling;
+
+            if (submenu.classList.contains("show")) {
+                submenu.classList.remove("show");
+                this.textContent = "+";
+            } else {
+                submenu.classList.add("show");
+                this.textContent = "−"; // change to minus when opened
+            }
+        });
+    });
+});
+</script>
+
+    

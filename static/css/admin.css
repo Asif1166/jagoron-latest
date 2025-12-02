@@ -1,0 +1,8 @@
+/* Align the save buttons at the top */
+
+
+/* Make the body content area larger */
+.content {
+    max-width: 100%;
+    margin: 0 auto;
+}

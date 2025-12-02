@@ -1,0 +1,28 @@
+ <!-- সর্বাধিক পঠিত section start -->
+ 
+ {% load custom_filters %}
+ <section role="region" aria-labelledby="Most-Read" data-e2e="most-read"
+ data-testid="most-read">
+ <div class="bbc-1rpw6bb e1m6nvxw1">
+     <h2 class="bbc-1xclg2i e1m6nvxw0"><span class="bbc-1fttcpj e1fapd9x4"><span
+                 class="bbc-127x8fy e1fapd9x2"><span dir="ltr" id="Most-Read"
+                     class="bbc-1o184zt e1fapd9x1">সর্বাধিক পঠিত</span></span></span>
+     </h2>
+ </div>
+ <ol role="list" class="bbc-7ncu7l ebmt73l0" dir="ltr">
+
+    {% for news in most_read_news %}
+     <li role="listitem" class="bbc-2727o6 ebmt73l0" dir="ltr">
+         <div class="bbc-1is9yal">
+             <div dir="ltr" class="bbc-19f33qz"><span class="bbc-uo8uve">{{forloop.counter|to_bengali}}</span></div>
+             <div dir="ltr" class="bbc-14zb6im"><a
+                     href="{{news.get_absolute_url}}"
+                     class="focusIndicatorDisplayTableCell bbc-hq7sa5">{{news.title}}</a></div>
+         </div>
+     </li>
+
+     {%endfor%}
+     
+ </ol>
+</section>
+<!-- সর্বাধিক পঠিত section end -->

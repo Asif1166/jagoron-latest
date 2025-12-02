@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% load bangla_filters %}
+
+{% block body %}
+   <style>
+    
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 65vh;
+    background: #f5f7fa;
+    padding: 20px;
+}
+
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container label {
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .form-container input {
+            padding: 10px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-container input:focus {
+            border-color: #3b82f6;
+            outline: none;
+        }
+
+        .form-container button {
+            background-color: #c51212;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .form-container button:hover {
+            background-color: #ba0909;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .form-footer a {
+            color: #c51212;
+            text-decoration: none;
+        }
+
+        .errorlist {
+            color: #c51212;
+            list-style: none;
+            margin: -10px 0 10px 0;
+            padding-left: 0;
+        }
+    </style>
+
+<main role="main" class="form-wrapper">
+    <div class="form-container">
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">{{ field.errors }}</ul>
+                {% endif %}
+            {% endfor %}
+            <button type="submit">Login</button>
+        </form>
+        <div class="form-footer">
+            Don't have an account? <a href="{% url 'register' %}">Register</a>
+        </div>
+    </div>
+</main>
+
+    {% endblock %}
+

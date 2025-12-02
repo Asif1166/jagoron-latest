@@ -1,0 +1,228 @@
+
+
+
+
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+
+
+
+</head>
+<body>
+
+
+
+
+
+           <!-- header start -->
+           <header role="banner" >
+        
+
+
+            <nav role="navigation" dir="ltr" class="bbc-1lmzg8c e11sm0on0">
+                <div class="bbc-14sj40g e11sm0on5">
+
+
+
+                    <div class="navbar-logo">
+                        
+                        <div>
+                            <div class="ep1mqcj0 bbc-1vsz7zf e10yv9r12">
+                                <div class="bbc-1dg7u9h e10yv9r13"><a href="/" id="topPage"
+                                        class="focusIndicatorRemove bbc-1re47cx e10yv9r11"
+                                        aria-labelledby="BrandLink-topPage">
+                                        <img width="250" src="{{site_info.logo.url}}" alt="">
+                                   
+                                        
+                                 </a>
+                                
+                                
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+
+
+                            
+
+
+
+
+
+                            
+
+
+                        
+                        </div>
+                   
+            </nav>
+
+            
+        </header>
+            <!-- header end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg">
+                    <div class="card-header text-white text-center" style="background-color: #c51212;">
+                        <h4>🎉 Celebrating 1 Lakh Family Members! 🎉</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-center fs-5 fw-bold">Create Your Profile Picture with Jagoron Logo!</p>
+                        <ol class="list-group list-group-numbered mb-4">
+                            <li class="list-group-item">Click on the <strong>Upload Photo</strong> section below.</li>
+                            <li class="list-group-item">Upload your current Facebook profile picture.</li>
+                            <li class="list-group-item">Download the new profile picture with the Jagoron logo.</li>
+                            <li class="list-group-item">Update your Facebook profile picture with the downloaded one.</li>
+                        </ol>
+                        <p class="text-center text-muted">Thank you for celebrating with us 💖</p>
+    
+                        <form id="photoForm" class="mt-4">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="imageInput" class="form-label fw-bold">Upload Your Photo:</label>
+                                <input class="form-control" type="file" id="imageInput" accept="image/*" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Generate Photo</button>
+                        </form>
+    
+                        <!-- Loader -->
+                        <div id="loaderContainer" class="mt-4 text-center" style="display: none;">
+                            <div class="loader mx-auto"></div>
+                            <p id="processingMessage" class="mt-2 text-primary">Processing... Please wait.</p>
+                        </div>
+    
+                        <div id="result" class="mt-4 text-center" style="display: none;">
+                            <h5 class="text-success">Your New Profile Picture:</h5>
+                            <img id="generatedImage" class="img-fluid rounded shadow-sm my-3" alt="Generated photo">
+                            <a id="downloadLink" class="btn btn-success mt-3" download="generated_photo.png">
+                                Download Photo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('photoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+    
+            const formData = new FormData();
+            const imageFile = document.getElementById('imageInput').files[0];
+            formData.append('image', imageFile);
+    
+            // Show loader and processing message on button click
+            const loaderContainer = document.getElementById('loaderContainer');
+            const processingMessage = document.getElementById('processingMessage');
+            loaderContainer.style.display = 'block';
+            processingMessage.style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+    
+            try {
+                const response = await fetch('', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                });
+    
+                const data = await response.json();
+    
+                // Hide loader and display result
+                loaderContainer.style.display = 'none';
+    
+                if (data.status === 'success') {
+                    document.getElementById('result').style.display = 'block';
+                    document.getElementById('generatedImage').src = data.image;
+                    document.getElementById('downloadLink').href = data.image;
+                } else {
+                    alert('Error generating photo: ' + data.message);
+                }
+            } catch (error) {
+                // Hide loader and show error
+                loaderContainer.style.display = 'none';
+                alert('Error: ' + error.message);
+            }
+        });
+    </script>
+    
+    <style>
+        /* Style for the loader */
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 5px solid #007bff;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+    
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    
+        /* Enhanced styling */
+        .card {
+            border-radius: 12px;
+        }
+    
+        .card-header {
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+    
+        .btn-primary {
+            background-color: #c51212;
+            border-color: #c51212;
+        }
+    
+        .btn-primary:hover {
+            background-color: #8e0d0d;
+            border-color: #670c0c;
+        }
+    
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+    
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
+    </style>
+</body>
+</html>

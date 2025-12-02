@@ -1,0 +1,496 @@
+{% load bangla_filters %}
+
+
+
+
+<style>
+    @media (max-width: 768px) {
+    /* Override the styles for .bbc-19fk8fk on mobile */
+    .bbc-19fk8fk {
+        all: unset; /* Resets all properties applied to this class */
+    }
+}
+</style>
+
+ <style>
+  
+
+        .news-containers {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #e7ebf6;
+            border-radius: 8px;
+            /* overflow: hidden; */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+.news-header {
+ 
+    color: #200c0c;
+    padding: 12px 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    border: 1px solid #c0392b;
+}
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 0;
+            min-height: 200px;
+        }
+
+        .main-news-section {
+            display: flex;
+            flex-direction: column;
+            /* padding: 20px; */
+            /* border-bottom: 2px solid #e74c3c; */
+            gap: 20px;
+        }
+
+        .main-news-top {
+            display: flex;
+            gap: 20px;
+        }
+
+        .main-news-image {
+            flex: 1;
+            max-width: 600px;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            border-radius: 3px;
+        }
+
+        .main-news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .main-news-content {
+            flex: 1;
+            /* display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px; */
+        }
+
+        .main-news-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            line-height: 1.4;
+            /* border: 3px solid #e74c3c; */
+            padding-top: 10px;
+          
+            border-radius: 8px;
+           
+        }
+
+        .main-news-bottom {
+            display: flex;
+            gap: 20px;
+        }
+
+        .main-news-bottom-left {
+            flex: 1;
+            padding: 15px;
+          background: #d8dff3;
+            border-radius: 6px;
+        }
+
+        .main-news-bottom-right {
+            flex: 1;
+            padding: 15px;
+          background: #d8dff3;
+            border-radius: 6px;
+        }
+
+        .main-news-detail-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .main-news-detail-text {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .side-news {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .side-news-item {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e74c3c !important;
+            transition: background-color 0.3s ease;
+        }
+
+        .side-news-item:last-child {
+            border-bottom: none;
+        }
+
+        .side-news-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .side-news-image {
+            width: 80px;
+            height: 60px;
+            margin-right: 15px;
+            overflow: hidden;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .side-news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .side-news-content {
+            flex: 1;
+        }
+
+        .side-news-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+            line-height: 1.3;
+            margin-bottom: 5px;
+        }
+
+        .side-news-meta {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        @media (max-width: 768px) {
+            .side-news-title {
+
+                padding-left: 10px;
+            }
+            .side-news-meta{
+
+                padding-left: 10px;
+            }
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+       .main-news-section {
+                flex-direction: column;
+                padding: 15px;
+                gap: 15px;
+            }
+
+            .main-news-top {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .main-news-image {
+                max-width: 100%;
+                aspect-ratio: 4/3;
+            }
+
+            .main-news-title {
+                font-size: 18px;
+                
+            }
+
+            .main-news-bottom {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .side-news-item {
+                flex-direction: column;
+                /* text-align: center; */
+                display: flex;
+                flex-direction: row;
+
+            }
+            
+            .side-news-image {
+                margin-right: 0;
+                margin-bottom: 10px;
+                width: 100px;
+                height: 75px;
+            }
+        }
+    </style>
+
+
+{% for group in special_news_data %}
+<div class="news-containers">
+    <div class="news-header">
+        {{ group.title }}
+    </div>
+
+    <div class="news-grid">
+ 
+ 
+ 
+         {% if group.main_news %}
+        <div class="main-news-section">
+{% if group.main_news %}
+<div class="main-news-section">
+    {% for main in group.main_news %}
+    <div class="main-news-top row align-items-center g-3">
+        <!-- Image Section -->
+        <div class="col-12 col-lg-6">
+            <a href="{{ main.news.get_absolute_url }}" style="text-decoration: none;">
+                <div class="main-news-image">
+                    <img src="{{ main.news.heading_image.url }}" alt="Main News" class="img-fluid rounded">
+                </div>
+            </a>
+        </div>
+
+        <!-- Content Section -->
+        <div class="col-12 col-lg-6">
+            <a href="{{ main.news.get_absolute_url }}" style="text-decoration: none;">
+                <div class="main-news-title fw-bold fs-5 text-dark mb-2">
+                    {{ main.news.title }}
+                </div>
+            </a>
+            <div class="main-news-detail-text text-muted">
+                {{ main.news.sub_content|truncatewords:70 }}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+
+        </div>
+        {% endif %}
+
+        <!-- Side News -->
+        <div class="side-news">
+            {% for item in group.side_news %}
+            <a href="{{ item.news.get_absolute_url }}" style="text-decoration: none;">
+            <div class="side-news-item">
+                <div class="side-news-image">
+                    <img src="{{ item.news.heading_image.url }}" alt="News {{ forloop.counter }}">
+                </div>
+                <div class="side-news-content">
+                    <div class="side-news-title">{{ item.news.title|truncatewords:8 }}</div>
+                    <div class="side-news-meta">{{ item.created_at|bangla_date }}</div>
+                </div>
+            </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<br>
+{% endfor %}
+
+
+
+
+
+
+
+
+<section aria-labelledby="low-feed-1" role="region">
+
+    <div data-testid="curation-grid-normal">
+       
+
+        
+     
+       
+    
+            <ul role="list" data-testid="topic-promo" class="bbc-k6wdzo">
+
+
+
+                {% if last_news %}
+                <li class="bbc-19fk8fk">
+                    <div class=" e1v051r10">
+                        <div class="promo-image">
+    
+                            
+                            <div class="bbc-1qfus8v e5q9uf21">
+                                <div class="bbc-j1srjl"
+                                    style="padding-bottom:56.25%;overflow:hidden">
+                                    {% if last_news.heading_image %}
+    
+    
+                                    <img src="{{last_news.heading_image.url}}" srcset="{{last_news.heading_image.url}} 240w, {{last_news.heading_image.url}} 320w, {{last_news.heading_image.url}} 480w, {{last_news.heading_image.url}} 624w, {{last_news.heading_image.url}} 800w" sizes="(min-width: 1008px) 760px, 100vw" alt="" width="1024" height="576" style="aspect-ratio:1024 / 576" class="bbc-139onq">
+                                    
+                                    {% if last_news.heading_image_title %}
+                                    <p class="bbc-19g7urm" role="text">
+                                        <span class="bbc-m04vo2">ছবির উৎস, </span>
+                                        
+                                        <span lang="en-GB">{{last_news.heading_image_title}}</span>
+                                  
+                                    </p>
+                                    {% endif %}
+    
+                                
+                                   {% elif last_news.main_image %}
+    
+                                   <img src="{{last_news.main_image.url}}" srcset="{{last_news.main_image.url}} 240w, {{last_news.main_image.url}} 320w, {{last_news.main_image.url}} 480w, {{last_news.main_image.url}} 624w, {{last_news.main_image.url}} 800w" sizes="(min-width: 1008px) 760px, 100vw" alt="" width="1024" height="576" style="aspect-ratio:1024 / 576" class="bbc-139onq"><p class="bbc-19g7urm" role="text"><span class="bbc-m04vo2">ছবির উৎস, </span><span lang="en-GB">{% if last_news.main_image_title %}{{last_news.main_image_title}}{% endif %}</span></p>
+    
+                               
+    
+                                   {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="promo-text">
+                            <h3 class="bbc-1tj0lg4 e47bds20"><a
+                                    href="{{ last_news.get_absolute_url }}"
+                                    class="focusIndicatorDisplayBlock bbc-uk8dsi e1d658bg0">
+                                    
+                                    {% if live_news %}
+                                    <svg
+                                        class="first-promo bbc-xjd75s" fill="currentColor"
+                                        focusable="false" aria-hidden="true" viewBox="0 0 32 32"
+                                        width="16" height="16">
+                                        
+                                        <path
+                                            d="M16 4c6.6 0 12 5.4 12 12s-5.4 12-12 12S4 22.6 4 16 9.4 4 16 4zm0-4C7.2 0 0 7.2 0 16s7.2 16 16 16 16-7.2 16-16S24.8 0 16 0z">
+                                        </path>
+                                        <circle cx="16" cy="16" r="8.5" class="bbc-1rjgwf9">
+                                        </circle>
+                                       
+                                    </svg>
+                                    {% endif %}
+                                    
+                                    <span role="text">
+    
+                                        {% if live_news %}
+                                        <span dir="ltr"
+                                            class="bbc-67ssno">লাইভ</span>
+                                            {% endif %}
+                                            <span lang="en-GB"
+                                            class="bbc-m04vo2">, </span>{{last_news.title}}</span></a></h3>
+                            <p class="promo-paragraph bbc-1pjzxpr ewjbyra0">{{last_news.sub_content}}</p>
+                        </div>
+    
+                        
+                    </div>
+                </li>
+                {% endif %}
+
+                {% for item in hero_news %}
+                <li class="bbc-t44f9r">
+                    <div class="bbc-bjn8wh e1v051r10 news_sec">
+                        <div class="promo-image">
+                            <div class="bbc-1qfus8v e5q9uf21">
+                                <div class="bbc-j1srjl" style="padding-bottom:56.25%;overflow:hidden">
+                                    <picture>
+                                        <source srcSet="{{ item.heading_image.url }} 85w, {{ item.heading_image.url }} 120w, {{ item.heading_image.url }} 170w, {{ item.heading_image.url }} 232w, {{ item.heading_image.url }} 325w, {{ item.heading_image.url }} 450w, {{ item.heading_image.url }} 660w, {{ item.heading_image.url }} 800w" type="image/webp" sizes="(min-width: 63rem) 232px, (min-width: 37.5rem) 50vw, 33vw" />
+                                        <source srcSet="{{ item.heading_image.url }} 85w, {{ item.heading_image.url }} 120w, {{ item.heading_image.url }} 170w, {{ item.heading_image.url }} 232w, {{ item.heading_image.url }} 325w, {{ item.heading_image.url }} 450w, {{ item.heading_image.url }} 660w, {{ item.heading_image.url }} 800w" type="image/jpeg" sizes="(min-width: 63rem) 232px, (min-width: 37.5rem) 50vw, 33vw" />
+                                        <img src="{{ item.heading_image.url }}" alt="পত্রিকা" loading="lazy" style="aspect-ratio:16 / 9" class="bbc-139onq" />
+                                    </picture>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="promo-text">
+                            <h3 class="bbc-qqcsu8 e47bds20">
+                                <a href="{{ item.get_absolute_url }}" class="focusIndicatorDisplayBlock bbc-uk8dsi e1d658bg0">{{ item.title }}</a>
+                            </h3>
+                            <time dateTime="{{ item.created_at }}" class="promo-timestamp bbc-un5gjj e1mklfmt0">{{ item.created_at|bangla_date }}</time>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        
+    </div>
+</section>
+
+
+
+
+<section aria-labelledby="low-feed-1" role="region">
+
+    <div data-testid="curation-grid-normal">
+       
+
+        
+     
+       
+    
+            <ul role="list" data-testid="topic-promos" class="bbc-k6wdzo">
+                {% for item in secondary_news %}
+                <li class="bbc-t44f9r">
+                    <div class="bbc-bjn8wh e1v051r10 news_sec">
+                        <div class="promo-images">
+                            <div class="bbc-1qfus8v e5q9uf21">
+                                <div class="bbc-j1srjl" style="padding-bottom:56.25%;overflow:hidden">
+                                    <picture>
+                                        <source srcSet="{{ item.heading_image.url }} 85w, {{ item.heading_image.url }} 120w, {{ item.heading_image.url }} 170w, {{ item.heading_image.url }} 232w, {{ item.heading_image.url }} 325w, {{ item.heading_image.url }} 450w, {{ item.heading_image.url }} 660w, {{ item.heading_image.url }} 800w" type="image/webp" sizes="(min-width: 63rem) 232px, (min-width: 37.5rem) 50vw, 33vw" />
+                                        <source srcSet="{{ item.heading_image.url }} 85w, {{ item.heading_image.url }} 120w, {{ item.heading_image.url }} 170w, {{ item.heading_image.url }} 232w, {{ item.heading_image.url }} 325w, {{ item.heading_image.url }} 450w, {{ item.heading_image.url }} 660w, {{ item.heading_image.url }} 800w" type="image/jpeg" sizes="(min-width: 63rem) 232px, (min-width: 37.5rem) 50vw, 33vw" />
+                                        <img src="{{ item.heading_image.url }}" alt="পত্রিকা" loading="lazy" style="aspect-ratio:16 / 9" class="bbc-139onq" />
+                                    </picture>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="promo-text">
+                            <h3 class="bbc-qqcsu8 e47bds20">
+                                <a href="{{ item.get_absolute_url }}" class="focusIndicatorDisplayBlock bbc-uk8dsi e1d658bg0">{{ item.title }}</a>
+                            </h3>
+                            <time dateTime="{{ item.created_at }}" class="promo-timestamp bbc-un5gjj e1mklfmt0">{{ item.created_at|bangla_date }}</time>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        
+    </div>
+</section>
+
+
+         
+       
+<style>
+    .video-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
+    
+    
+    @media (max-width: 600px) {
+        .video-container {
+            flex: 0 0 48%; /* On smaller screens, show two per row */
+        }
+    }
+    
+    
+    .bbc-bjn8wh {
+        position: relative;
+    }
+    
+    @media (min-width: 0px) and (max-width: 599px) {
+        .bbc-bjn8wh {
+            position: relative;
+            display: flex !important;
+        }
+    }
+
+
+    @media (min-width: 63rem) {
+    .bbc-t44f9r .promo-images {
+        display: none;
+    }
+}
+         </style>

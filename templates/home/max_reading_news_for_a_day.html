@@ -1,0 +1,75 @@
+{% load bangla_filters %}
+     
+<!-- বাংলাদেশ section start -->
+{% if todays_most_viewed_news %}
+
+<section aria-labelledby="low-feed-1" role="region">
+    <h2 id="low-feed-1" class="bbc-cey3go">
+   
+            <span>আজকের সর্বাধিক পঠিত  খবর </span>
+            <svg viewBox="0 0 32 32" focusable="false" aria-hidden="true" width="12" height="12">
+                <path d="M21.6 14.3L5.5 31h6.4l14.6-15L11.9 1H5.5l16.1 16.7v-3.4z"></path>
+            </svg>
+     
+    </h2>
+    <div data-testid="curation-grid-normal">
+     
+            <ul role="list" data-testid="topic-promos" class="bbc-k6wdzo">
+                {% for news in todays_most_viewed_news %}
+                <li class="bbc-t44f9r">
+                    <div class="bbc-bjn8wh e1v051r10 news_sec">
+                        <div class="promo-image">
+                            <div class="bbc-1qfus8v e5q9uf21">
+                                <div class="bbc-j1srjl" style="padding-bottom:56.25%;overflow:hidden">
+                                    <picture>
+                                        <source srcSet="{{ news.heading_image.url }} 85w, {{ news.heading_image.url }} 120w, {{ news.heading_image.url }} 170w, {{ news.heading_image.url }} 232w, {{ news.heading_image.url }} 325w, {{ news.heading_image.url }} 450w, {{ news.heading_image.url }} 660w, {{ news.heading_image.url }} 800w" type="image/webp" sizes="(min-width: 63rem) 232px, (min-width: 37.5rem) 50vw, 33vw" />
+                                        <source srcSet="{{ news.heading_image.url }} 85w, {{ news.heading_image.url }} 120w, {{ news.heading_image.url }} 170w, {{ news.heading_image.url }} 232w, {{ news.heading_image.url }} 325w, {{ news.heading_image.url }} 450w, {{ news.heading_image.url }} 660w, {{ news.heading_image.url }} 800w" type="image/jpeg" sizes="(min-width: 63rem) 232px, (min-width: 37.5rem) 50vw, 33vw" />
+                                        <img src="{{ news.heading_image.url }}" alt="পত্রিকা" loading="lazy" style="aspect-ratio:16 / 9" class="bbc-139onq" />
+                                    </picture>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="promo-text">
+                            <h3 class="bbc-qqcsu8 e47bds20">
+                                <a href="{{ news.get_absolute_url }}" class="focusIndicatorDisplayBlock bbc-uk8dsi e1d658bg0">{{ news.title }}</a>
+                            </h3>
+                            <time dateTime="{{ news.created_at }}" class="promo-timestamp bbc-un5gjj e1mklfmt0">{{ news.created_at|bangla_date }}</time>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+      
+    </div>
+</section>
+
+{% endif %}
+
+
+<style>
+.video-section {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+justify-content: center;
+}
+
+
+@media (max-width: 600px) {
+.video-container {
+   flex: 0 0 48%; /* On smaller screens, show two per row */
+}
+}
+
+
+.bbc-bjn8wh {
+position: relative;
+}
+
+@media (min-width: 0px) and (max-width: 599px) {
+.bbc-bjn8wh {
+   position: relative;
+   display: flex !important;
+}
+}
+</style>

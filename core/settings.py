@@ -230,3 +230,9 @@ LOGGING = {
         },
     },
 }
+
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://jagoronnews.com",
+    "https://www.jagoronnews.com",
+]

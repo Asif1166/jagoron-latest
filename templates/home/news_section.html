@@ -3,7 +3,7 @@
      <!-- বাংলাদেশ section start -->
 
      {% for section in sections %}
-       {% if not section.title == "ভিডিও" %}
+       {% if not section.title == "ভিডিও" and not section.title == "অন্যান্য খবর" %}
      <section aria-labelledby="low-feed-1" role="region">
          <h2 id="low-feed-1" class="bbc-cey3go">
              <a href="{{ section.get_absolute_url }}">

@@ -1,0 +1,425 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Dashboard | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    .dashboard-container {
+        padding: 20px;
+    }
+    .dashboard-header {
+        margin-bottom: 30px;
+    }
+    .dashboard-header h1 {
+        margin: 0;
+        font-size: 24px;
+    }
+    .filter-section {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    .filter-section label {
+        margin-right: 10px;
+        font-weight: bold;
+    }
+    .filter-section select {
+        padding: 5px 10px;
+        margin-right: 20px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+    }
+    .filter-section button {
+        padding: 5px 15px;
+        background: #417690;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    .filter-section button:hover {
+        background: #205067;
+    }
+    .chart-container {
+        background: white;
+        padding: 20px;
+        margin-bottom: 30px;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .chart-container h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 18px;
+        color: #333;
+    }
+    .chart-wrapper {
+        position: relative;
+        height: 400px;
+    }
+    .loading {
+        text-align: center;
+        padding: 50px;
+        color: #666;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>📊 News Dashboard</h1>
+    </div>
+
+    <!-- Total Content Dashboard Section -->
+    <div class="chart-container" style="background: #f0f8ff; border: 2px solid #417690;">
+        <h2 style="color: #417690; font-size: 20px; margin-bottom: 15px;">📈 Total Content Dashboard</h2>
+        
+        <div class="filter-section" style="margin-bottom: 20px;">
+            <label for="content-view-select">View Type:</label>
+            <select id="content-view-select" onchange="loadContentChart()">
+                <option value="weekly">Weekly</option>
+                <option value="monthly" selected>Monthly</option>
+                <option value="yearly">Yearly</option>
+            </select>
+
+            <label for="content-month-select">Month:</label>
+            <select id="content-month-select">
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+
+            <label for="content-year-select">Year:</label>
+            <select id="content-year-select">
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+            </select>
+
+            <button onclick="loadContentChart()">Apply Filter</button>
+        </div>
+        
+        <div class="chart-wrapper">
+            <div id="contentChartLoading" class="loading" style="display: none;">Loading chart data...</div>
+            <canvas id="contentChart" style="display: block;"></canvas>
+        </div>
+    </div>
+
+    <!-- Existing Charts Filter Section -->
+    <div class="filter-section">
+        <label for="month-select">Month:</label>
+        <select id="month-select">
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+
+        <label for="year-select">Year:</label>
+        <select id="year-select">
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+        </select>
+
+        <button onclick="loadCharts()">Apply Filter</button>
+    </div>
+
+    <div class="chart-container">
+        <h2>📸 Image Upload Statistics (Daily)</h2>
+        <div class="chart-wrapper">
+            <canvas id="imageChart"></canvas>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <h2>👤 Daily News Count by Reporter</h2>
+        <div class="chart-wrapper">
+            <canvas id="reporterChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+    let imageChart = null;
+    let reporterChart = null;
+    let contentChart = null;
+
+    // Set current month and year
+    const now = new Date();
+    document.getElementById('month-select').value = now.getMonth() + 1;
+    document.getElementById('year-select').value = now.getFullYear();
+    document.getElementById('content-month-select').value = now.getMonth() + 1;
+    document.getElementById('content-year-select').value = now.getFullYear();
+
+    function loadCharts() {
+        const month = document.getElementById('month-select').value;
+        const year = document.getElementById('year-select').value;
+
+        // Load image stats
+        fetch(`/admin/dashboard/image-stats/?month=${month}&year=${year}`)
+            .then(response => response.json())
+            .then(data => {
+                updateImageChart(data);
+            })
+            .catch(error => {
+                console.error('Error loading image stats:', error);
+            });
+
+        // Load reporter stats
+        fetch(`/admin/dashboard/reporter-stats/?month=${month}&year=${year}`)
+            .then(response => response.json())
+            .then(data => {
+                updateReporterChart(data);
+            })
+            .catch(error => {
+                console.error('Error loading reporter stats:', error);
+            });
+    }
+
+    function updateImageChart(data) {
+        const ctx = document.getElementById('imageChart').getContext('2d');
+        
+        if (imageChart) {
+            imageChart.destroy();
+        }
+
+        imageChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.labels,
+                datasets: data.datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Daily Image Uploads'
+                    }
+                }
+            }
+        });
+    }
+
+    function updateReporterChart(data) {
+        const ctx = document.getElementById('reporterChart').getContext('2d');
+        
+        if (reporterChart) {
+            reporterChart.destroy();
+        }
+
+        reporterChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.labels,
+                datasets: data.datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Daily News Count by Reporter'
+                    }
+                }
+            }
+        });
+    }
+
+    function loadContentChart() {
+        const viewType = document.getElementById('content-view-select').value;
+        const month = document.getElementById('content-month-select').value;
+        const year = document.getElementById('content-year-select').value;
+
+        // Show loading indicator
+        const loadingDiv = document.getElementById('contentChartLoading');
+        const canvas = document.getElementById('contentChart');
+        if (loadingDiv) loadingDiv.style.display = 'block';
+        if (canvas) canvas.style.display = 'none';
+
+        fetch(`/admin/dashboard/content-stats/?view=${viewType}&month=${month}&year=${year}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (loadingDiv) loadingDiv.style.display = 'none';
+                if (canvas) canvas.style.display = 'block';
+                
+                if (data.error) {
+                    console.error('Server error:', data.error);
+                    if (loadingDiv) {
+                        loadingDiv.textContent = 'Error: ' + data.error;
+                        loadingDiv.style.display = 'block';
+                    }
+                    return;
+                }
+                
+                if (!data || !data.labels || !data.datasets) {
+                    console.error('Invalid data received:', data);
+                    if (loadingDiv) {
+                        loadingDiv.textContent = 'Error: Invalid data received';
+                        loadingDiv.style.display = 'block';
+                    }
+                    return;
+                }
+                
+                updateContentChart(data, viewType);
+            })
+            .catch(error => {
+                console.error('Error loading content stats:', error);
+                if (loadingDiv) {
+                    loadingDiv.textContent = 'Error loading chart: ' + error.message;
+                    loadingDiv.style.display = 'block';
+                }
+            });
+    }
+
+    function updateContentChart(data, viewType) {
+        const canvas = document.getElementById('contentChart');
+        if (!canvas) {
+            console.error('Canvas element not found');
+            return;
+        }
+
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+            console.error('Could not get 2d context from canvas');
+            return;
+        }
+        
+        if (contentChart) {
+            contentChart.destroy();
+            contentChart = null;
+        }
+
+        let chartType = 'bar';
+        let titleText = 'Total Content Statistics';
+        
+        if (viewType === 'yearly') {
+            chartType = 'line';
+            titleText = 'Yearly Content Overview';
+        } else if (viewType === 'weekly') {
+            chartType = 'bar';
+            titleText = 'Weekly Content Overview';
+        } else {
+            chartType = 'bar';
+            titleText = 'Monthly Content Overview';
+        }
+
+        try {
+            contentChart = new Chart(ctx, {
+                type: chartType,
+                data: {
+                    labels: data.labels || [],
+                    datasets: data.datasets || []
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        title: {
+                            display: true,
+                            text: titleText
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    }
+                }
+            });
+        } catch (error) {
+            console.error('Error creating chart:', error);
+            const loadingDiv = document.getElementById('contentChartLoading');
+            if (loadingDiv) {
+                loadingDiv.textContent = 'Error creating chart: ' + error.message;
+                loadingDiv.style.display = 'block';
+            }
+        }
+    }
+
+    // Load charts on page load
+    window.addEventListener('DOMContentLoaded', function() {
+        loadCharts();
+        loadContentChart();
+    });
+</script>
+{% endblock %}
+

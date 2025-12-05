@@ -1,0 +1,12 @@
+{% extends "admin/index.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div style="margin-bottom: 20px; padding: 15px; background: #417690; border-radius: 5px;">
+    <a href="{% url 'admin_dashboard' %}" style="color: white; text-decoration: none; font-size: 16px; font-weight: bold;">
+        📊 View Dashboard & Charts
+    </a>
+</div>
+{{ block.super }}
+{% endblock %}
+

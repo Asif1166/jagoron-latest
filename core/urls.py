@@ -16,6 +16,7 @@ urlpatterns = [
     path('ads.txt', TemplateView.as_view(template_name='ads.txt', content_type='text/plain')),
 
     path('jag-admin/', admin.site.urls),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('home.urls')),
     path('', include('account.urls')),
 ]

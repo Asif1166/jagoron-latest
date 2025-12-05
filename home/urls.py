@@ -23,5 +23,10 @@ urlpatterns = [
         TemplateView.as_view(template_name="pages/editor_profile.html"), 
         name='static_editor_page'
     ),
+    path('ckeditor/upload/', views.ckeditor_upload, name='ckeditor_upload'),
+    path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
+    path('admin/dashboard/image-stats/', views.dashboard_image_stats, name='dashboard_image_stats'),
+    path('admin/dashboard/reporter-stats/', views.dashboard_reporter_stats, name='dashboard_reporter_stats'),
+    path('admin/dashboard/content-stats/', views.dashboard_content_stats, name='dashboard_content_stats'),
     
 ]

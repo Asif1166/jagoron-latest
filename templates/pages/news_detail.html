@@ -10,10 +10,10 @@
 
             <div class="bbc-q944gg">
                 <div class="bbc-1kb1fna">
-                        <!-- <section aria-label="বিজ্ঞাপন" aria-hidden="true"  data-e2e="advertisement"
+                        {% comment %} <section aria-label="বিজ্ঞাপন" aria-hidden="true"  data-e2e="advertisement"
                             class="bbc-13j0x7y">
                             <div id="dotcom-leaderboard" class="dotcom-ad"></div>
-                        </section> -->
+                        </section> {% endcomment %}
                     <div class="bbc-bg8vrv">
                         <div class="bbc-1cvxiy9">
                             <main role="main" class="bbc-fa0wmp">
@@ -281,7 +281,7 @@
 <!-- Review Form (already exists above) -->
 
 <!-- Reviews Section -->
-<div class="review-section" style="margin-top: 50px;">
+<div class="review-section" style="padding: 10px;">
     <h3 style="margin-bottom: 20px; border-bottom: 2px solid #ccc; padding-bottom: 5px;">মন্তব্যসমূহ</h3>
 
     {% if reviews %}
@@ -317,27 +317,36 @@
 
 
 
-<section aria-labelledby="low-feed-1" >
+<section aria-labelledby="low-feed-1" style="padding: 10px;">
     <h3>সম্পর্কিত নিউজ </h3>
     <div data-testid="curation-grid-normal">
        
 
         
      
-       
     
             <ul role="list" data-testid="topic-promos" class="bbc-k6wdzo">
                 {% for item in related_news %}
                 <li class="bbc-t44f9r">
                     <div class="bbc-bjn8wh e1v051r10 news_sec">
-                        <div class="promo-images">
+                        <div class="promo-image">
                             <div class="bbc-1qfus8v e5q9uf21">
-                                <div class="bbc-j1srjl" style="padding-bottom:56.25%;overflow:hidden">
-                                    <picture>
-                                        <source srcSet="{{ item.heading_image.url }} 85w, {{ item.heading_image.url }} 120w, {{ item.heading_image.url }} 170w, {{ item.heading_image.url }} 232w, {{ item.heading_image.url }} 325w, {{ item.heading_image.url }} 450w, {{ item.heading_image.url }} 660w, {{ item.heading_image.url }} 800w" type="image/webp" sizes="(min-width: 63rem) 232px, (min-width: 37.5rem) 50vw, 33vw" />
-                                        <source srcSet="{{ item.heading_image.url }} 85w, {{ item.heading_image.url }} 120w, {{ item.heading_image.url }} 170w, {{ item.heading_image.url }} 232w, {{ item.heading_image.url }} 325w, {{ item.heading_image.url }} 450w, {{ item.heading_image.url }} 660w, {{ item.heading_image.url }} 800w" type="image/jpeg" sizes="(min-width: 63rem) 232px, (min-width: 37.5rem) 50vw, 33vw" />
-                                        <img src="{{ item.heading_image.url }}" alt="পত্রিকা" style="aspect-ratio:16 / 9" class="bbc-139onq" />
-                                    </picture>
+                                <div class="bbc-j1srjl" style="padding-bottom:56.25%;overflow:hidden;position:relative">
+                                    {% if item.heading_image %}
+                                    <img src="{{ item.heading_image.url }}"
+                                        srcSet="{{ item.heading_image.url }} 85w, {{ item.heading_image.url }} 120w, {{ item.heading_image.url }} 170w, {{ item.heading_image.url }} 232w, {{ item.heading_image.url }} 325w, {{ item.heading_image.url }} 450w, {{ item.heading_image.url }} 660w, {{ item.heading_image.url }} 800w"
+                                        sizes="(min-width: 63rem) 232px, (min-width: 37.5rem) 50vw, 33vw"
+                                        alt="{{ item.title }}"
+                                        style="aspect-ratio:16 / 9;width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0"
+                                        class="bbc-139onq" />
+                                    {% elif item.main_image %}
+                                    <img src="{{ item.main_image.url }}"
+                                        srcSet="{{ item.main_image.url }} 85w, {{ item.main_image.url }} 120w, {{ item.main_image.url }} 170w, {{ item.main_image.url }} 232w, {{ item.main_image.url }} 325w, {{ item.main_image.url }} 450w, {{ item.main_image.url }} 660w, {{ item.main_image.url }} 800w"
+                                        sizes="(min-width: 63rem) 232px, (min-width: 37.5rem) 50vw, 33vw"
+                                        alt="{{ item.title }}"
+                                        style="aspect-ratio:16 / 9;width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0"
+                                        class="bbc-139onq" />
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -409,6 +418,19 @@
                                        
                                         <li class="bbc-s6v87m e1eoj41e0">
                                             <div class="bbc-ey9z5j">
+                                                {% if item.heading_image or item.main_image %}
+                                                <div class="bbc-1bepigl" style="padding-bottom:56.3%;overflow:hidden;margin-bottom:0px">
+                                                    {% if item.heading_image %}
+                                                    <img src="{{item.heading_image.url}}"
+                                                        alt="{{item.title}}"
+                                                        class="bbc-139onq" />
+                                                    {% elif item.main_image %}
+                                                    <img src="{{item.main_image.url}}"
+                                                        alt="{{item.title}}"
+                                                        class="bbc-139onq" />
+                                                    {% endif %}
+                                                </div>
+                                                {% endif %}
                                                 <div class="bbc-70p486 epcp8l40">
                                                     <div class="bbc-2xm90o epcp8l41">
                                                         <h3 class="bbc-1nc9jnp e1j5zm900"><a data-testid="promo-link"

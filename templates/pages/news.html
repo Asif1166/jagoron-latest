@@ -2026,6 +2026,9 @@ data-emotion-css="q8cnfh 16ubpog 1vsz7zf 1dg7u9h 1re47cx 1jefi8v m04vo2 1tr924h 
 
 {% if selected_section.title == "ভিডিও" %}
 
+
+
+
 <main role="main" class="bbc-18yqr0l">
     <div class="bbc-1tzeti0">
         <div class="bbc-xc3h9y">
@@ -2041,22 +2044,122 @@ data-emotion-css="q8cnfh 16ubpog 1vsz7zf 1dg7u9h 1re47cx 1jefi8v m04vo2 1tr924h 
                     <div class="bbc-bjn8wh e1v051r10">
                         <div class="promo-iframe">
                             <!-- Embed the iframe -->
+                            {% if news.embed_url %}
+                            {% if news.watch_url %}
+                            <a href="{{ news.watch_url }}" target="_blank" rel="noopener noreferrer" style="display: block; position: relative;">
+                                <iframe 
+                                    src="{{ news.embed_url }}" 
+                                    title="{{ news.video_title|default:'Video' }}" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" 
+                                    allowfullscreen 
+                                    style="width: 100%; aspect-ratio: 16 / 9; border: none; pointer-events: none;">
+                                </iframe>
+                                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer; z-index: 1;" 
+                                     onclick="window.open('{{ news.watch_url }}', '_blank', 'noopener,noreferrer'); return false;"
+                                     title="Click to watch on YouTube"></div>
+                            </a>
+                            {% else %}
                             <iframe 
-                                src="{{ news.youtube_link }}" 
-                                title="{{ news.title }}" 
+                                src="{{ news.embed_url }}" 
+                                title="{{ news.video_title|default:'Video' }}" 
                                 frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" 
                                 allowfullscreen 
-                                style="width: 100%; aspect-ratio: 16 / 9;">
+                                style="width: 100%; aspect-ratio: 16 / 9; border: none;">
                             </iframe>
+                            {% endif %}
+                            {% else %}
+                            <div style="padding: 20px; text-align: center; background: #f0f0f0; aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center;">
+                                <p>Invalid YouTube URL</p>
+                            </div>
+                            {% endif %}
                         </div>
-                        
+                        {% if news.video_title %}
+                        <div class="promo-text">
+                            <h3 class="bbc-qqcsu8 e47bds20">
+                                {% if news.watch_url %}
+                                <a href="{{ news.watch_url }}" target="_blank" rel="noopener noreferrer" class="focusIndicatorDisplayBlock bbc-uk8dsi e1d658bg0" style="text-decoration: none; color: inherit;">
+                                    {{ news.video_title }}
+                                </a>
+                                {% else %}
+                                <span class="focusIndicatorDisplayBlock bbc-uk8dsi e1d658bg0">{{ news.video_title }}</span>
+                                {% endif %}
+                            </h3>
+                        </div>
+                        {% endif %}
                     </div>
                 </li>
                 {% endfor %}
               
             </ul>
         </div>
+        
+        {% if video_post.paginator.num_pages > 1 %}
+        <nav role="navigation" aria-label="পৃষ্ঠা" data-testid="topic-pagination" class="bbc-3pg7gd">
+            <div data-testid="topic-pagination-summary" role="text" class="bbc-a3s25o">
+                <span>পৃষ্ঠা </span>
+                <b>{{ video_post.number }}</b>
+                <span> এর মধ্যে </span>
+                <b>{{ video_post.paginator.num_pages }}</b>
+            </div>
+            
+            <ul role="list" class="bbc-1xa4jcw">
+                {% if video_post.has_previous %}
+                    <li class="bbc-1u3fgrg">
+                        <a href="?{% if selected_section %}section={{ selected_section.id }}&{% endif %}video_page=1" 
+                           class="focusIndicatorOutlineBlack bbc-1spja2a">
+                            <span class="bbc-m04vo2">প্রথম</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for p in video_page_range %}
+                    {% if p == video_current_page %}
+                        <li class="bbc-1u3fgrg">
+                            <a href="?{% if selected_section %}section={{ selected_section.id }}&{% endif %}video_page={{ p }}" 
+                               class="focusIndicatorOutlineBlack bbc-gtjcdn" 
+                               aria-current="page">{{ p }}</a>
+                        </li>
+                    {% else %}
+                        <li class="bbc-{% if forloop.first or forloop.last %}1u3fgrg{% else %}tto26q{% endif %}">
+                            <a href="?{% if selected_section %}section={{ selected_section.id }}&{% endif %}video_page={{ p }}" 
+                               class="focusIndicatorOutlineBlack bbc-1spja2a">{{ p }}</a>
+                        </li>
+                    {% endif %}
+
+                    {% if forloop.last and p < video_max_pages %}
+                        <li role="separator" data-testid="topic-pagination-ellipsis" class="bbc-jgaja7">
+                            <svg viewBox="0 0 32 32" focusable="false" aria-hidden="true" width="12" height="12">
+                                <path d="M1.6 18.8h5.8v-5.6H1.6v5.6zm11.5 0h5.8v-5.6h-5.8v5.6zm11.5 0h5.8v-5.6h-5.8v5.6z"></path>
+                            </svg>
+                        </li>
+                        <li class="bbc-1u3fgrg">
+                            <a href="?{% if selected_section %}section={{ selected_section.id }}&{% endif %}video_page={{ video_max_pages }}" 
+                               class="focusIndicatorOutlineBlack bbc-1spja2a">{{ video_max_pages }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if video_post.has_next %}
+                    <li class="bbc-1u3fgrg">
+                        <a href="?{% if selected_section %}section={{ selected_section.id }}&{% endif %}video_page={{ video_post.next_page_number }}" 
+                           class="focusIndicatorOutlineBlack bbc-1spja2a" 
+                           aria-labelledby="pagination-next-page">
+                            <span id="pagination-next-page">
+                                <span class="bbc-m04vo2">পরবর্তী</span>
+                                <svg viewBox="0 0 32 32" focusable="false" aria-hidden="true" width="12" height="12">
+                                    <path d="M21.6 14.3L5.5 31h6.4l14.6-15L11.9 1H5.5l16.1 16.7v-3.4z"></path>
+                                </svg>
+                            </span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
     </div>
 </main>
 

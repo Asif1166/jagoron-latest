@@ -12,3 +12,4 @@ staticfiles
 .env.development
 .env.test
 .env.production
+*.sqlite3
